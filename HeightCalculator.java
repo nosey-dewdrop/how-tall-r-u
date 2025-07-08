@@ -1,8 +1,12 @@
 public class HeightCalculator {
 
     // calculate height from phalanx length
-    public static double calculateFromPhalanx(double phalanxLength, boolean isMale) {
-        if (isMale) {
+    public static double calculateFromPhalanx(Person person, double phalanxLength ) {
+        
+        person.setMeasurementType("from phalanx");
+        String gender = person.getGender();
+
+        if (gender.equals("male")) {
             return phalanxLength / 0.028;
         } 
         else {
@@ -11,13 +15,18 @@ public class HeightCalculator {
     }
 
     // calculate height from thumb length  
-    public static double calculateFromThumb(double thumbLength) {
+    public static double calculateFromThumb(Person person, double thumbLength) {
+        person.setMeasurementType("from thumb");
         return thumbLength / 0.095;
     }
 
     // calculate height from humerus length (gender specific)
-    public static double calculateFromHumerus(double humerusLength, boolean isMale) {
-        if (isMale) {
+    public static double calculateFromHumerus(Person person, double humerusLength ) {
+        
+        person.setMeasurementType("from humerus");
+        String gender = person.getGender();
+
+        if (gender.equals("male")) {
             return (2.89 * humerusLength) + 78.10;
         } 
         else {
@@ -26,25 +35,25 @@ public class HeightCalculator {
     }
 
     // calculate height from hand length
-    public static double calculateFromHand(double handLength) {
+    public static double calculateFromHand(Person person, double handLength) {
+        person.setMeasurementType("from hand");
         return handLength / 0.185;
     }
 
-    // calculate height from foot length
-    public static double calculateFromFoot(double footLength) {
-        return footLength / 0.15;
-    }
-
     // calculate height from shoe size (gender specific)
-    public static double calculateFromShoeSize(double shoeSize, boolean isMale) {
+    public static double calculateFromShoeSize(Person person, double shoeSize) {
+
+        person.setMeasurementType("from shoe");
+        String gender = person.getGender();
         double footLength;
-        if (isMale) {
+
+        if (gender.equals("male")) {
             footLength = (shoeSize * 0.67) + 22.0;
         } 
         else {
             footLength = (shoeSize * 0.67) + 20.5;
         }
-        return calculateFromFoot(footLength);
+        return footLength / 0.15;
     }
 
     // get accuracy range for each measurement type
